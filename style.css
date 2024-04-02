@@ -1,0 +1,46 @@
+body{
+    font-size: larger;
+}
+
+#main-container{
+    width: 400px;
+    background-color: rgb(202, 234, 253);
+    margin: auto;
+}
+
+#display{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    flex:1;
+    background-color: white;
+    height: 40px;
+}
+
+.row,
+.row-1{
+    display: flex;
+    padding: 10px;
+}
+
+.row{
+    gap: 10px;
+}
+.row-1{
+    justify-content: center;
+}
+
+.row > button{
+    flex: 1;
+}
+
+#equal{
+    background-color: blue;
+    color: white;
+    flex: 4;
+}
+
+#clear{
+    background-color: red;
+    color: white;
+}
