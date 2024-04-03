@@ -41,16 +41,21 @@ let actualDisplay = 0;
 const display = document.querySelector('#display');
 const btns = document.querySelectorAll('button');
 btns.forEach((button) =>{button.addEventListener('click', function (e){
-    if(display.textContent === '0'){
-        display.textContent = e.currentTarget.id;
-        actualDisplay = display.textContent;
-    }else{
-        display.textContent += e.currentTarget.id;
-        actualDisplay = display.textContent;
+    if (e.currentTarget.id == 'equal'){
+        console.log(e.currentTarget.id);
     }
+    if (e.currentTarget.className == 'number-or-operator'){
+        if (display.textContent === '0'){
+            display.textContent = e.currentTarget.textContent;
+            actualDisplay = display.textContent;
+        }else {
+            display.textContent += e.currentTarget.textContent;
+            actualDisplay = display.textContent;
+        }
+    }    
 })});
 
-// Calculator
+// Take actualDisplay and use as input for operate()
 
 function result(actualDisplay) {
     let result = '';
