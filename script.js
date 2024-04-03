@@ -35,3 +35,44 @@ function multiply(firstNumber, secondNumber){
 function divide(firstNumber, secondNumber){
     return secondNumber === 0 ? 0 : firstNumber / secondNumber;
 };
+
+// Calculator scripts for display
+let actualDisplay = 0;
+const display = document.querySelector('#display');
+const btns = document.querySelectorAll('button');
+btns.forEach((button) =>{button.addEventListener('click', function (e){
+    if(display.textContent === '0'){
+        display.textContent = e.currentTarget.id;
+        actualDisplay = display.textContent;
+    }else{
+        display.textContent += e.currentTarget.id;
+        actualDisplay = display.textContent;
+    }
+})});
+
+// Calculator
+
+function result(actualDisplay) {
+    let result = '';
+    let first = '';
+    let second = '';
+    let operator = '';
+    for (let i = 0; i != actualDisplay.length(); i++){
+        if (Number.isInteger(Number(actualDisplay.charAt(i)))) {
+            if (!operator) {
+                first = first.concat(actualDisplay.charAt(i));
+            }else {
+                second = second.concat(actualDisplay.charAt(i));
+            }
+        }
+        if (operator){
+            result = operate(first, operator, second);
+            first = result;
+            result = 0;
+            second = 0;
+            operator = actualDisplay.charAt(i);
+        }
+        operator = display.charAt(i);
+    }
+    return result;
+}
