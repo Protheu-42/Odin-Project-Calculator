@@ -97,4 +97,20 @@ btns.forEach((button) =>{button.addEventListener('click', function (e){
             secondNumber += e.currentTarget.textContent;
         }
     }
+
+    // Backspace is clicked
+    else if (e.currentTarget.id = 'backspace') {
+        if (!operator) {
+            firstNumber = firstNumber.slice(0, firstNumber.length -1);
+            display.textContent = firstNumber;
+        }
+        else if (operator && !secondNumber) {
+            operator = '';
+            display.textContent = display.textContent.slice(0, display.textContent.length -1);
+        }
+        else {
+            secondNumber = secondNumber.slice(0, secondNumber.length -1);
+            display.textContent = firstNumber+operator+secondNumber;
+        }
+    }
 })});
