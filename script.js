@@ -1,6 +1,7 @@
-let firstNumber = 0;
-let secondNumber = 0;
-let operator = '+';
+let result = '';
+let firstNumber = '0';
+let secondNumber = '';
+let operator = '';
 
 function operate(firstNumber, operator, secondNumber){
     switch (operator) {
@@ -37,47 +38,44 @@ function divide(firstNumber, secondNumber){
 };
 
 // Calculator scripts for display
-let actualDisplay = 0;
 const display = document.querySelector('#display');
 const btns = document.querySelectorAll('button');
 btns.forEach((button) =>{button.addEventListener('click', function (e){
-    if (e.currentTarget.id == 'equal'){
-        console.log(e.currentTarget.id);
-    }
-    if (e.currentTarget.className == 'number-or-operator'){
-        if (display.textContent === '0'){
+    // If number is clicked
+    if (e.currentTarget.className == 'number') {
+        if (display.textContent == '0') {
             display.textContent = e.currentTarget.textContent;
-            actualDisplay = display.textContent;
+            firstNumber = e.currentTarget.textContent;
+        }else if (!operator){
+            display.textContent += e.currentTarget.textContent;
+            firstNumber += e.currentTarget.textContent;
         }else {
             display.textContent += e.currentTarget.textContent;
-            actualDisplay = display.textContent;
-        }
-    }    
-})});
+            secondNumber += e.currentTarget.textContent;
 
-// Take actualDisplay and use as input for operate()
-
-function result(actualDisplay) {
-    let result = '';
-    let first = '';
-    let second = '';
-    let operator = '';
-    for (let i = 0; i != actualDisplay.length(); i++){
-        if (Number.isInteger(Number(actualDisplay.charAt(i)))) {
-            if (!operator) {
-                first = first.concat(actualDisplay.charAt(i));
-            }else {
-                second = second.concat(actualDisplay.charAt(i));
-            }
         }
-        if (operator){
-            result = operate(first, operator, second);
-            first = result;
-            result = 0;
-            second = 0;
-            operator = actualDisplay.charAt(i);
-        }
-        operator = display.charAt(i);
     }
-    return result;
-}
+    // If operator is clicked
+    else if (e.currentTarget.className == 'operator') {
+        if(operator){
+            result = operate(Number(firstNumber), operator, Number(secondNumber));
+            firstNumber = result;
+            secondNumber = '';
+            operator = e.currentTarget.textContent;
+            display.textContent = result+operator;
+        }else {
+        operator = e.currentTarget.textContent;
+        display.textContent += operator;
+        }
+    }
+    // If equal is clicked
+    else if (e.currentTarget.id == 'equal') {
+        if (operator && secondNumber) {
+            result = operate(Number(firstNumber), operator, Number(secondNumber));
+            firstNumber = result;
+            secondNumber = '';
+            operator = '';
+            display.textContent = result;  
+        }
+    }
+})});
