@@ -41,7 +41,7 @@ function divide(firstNumber, secondNumber){
 const display = document.querySelector('#display');
 const btns = document.querySelectorAll('button');
 btns.forEach((button) =>{button.addEventListener('click', function (e){
-    // If number is clicked
+    // Number is clicked
     if (e.currentTarget.className == 'number') {
         if (display.textContent == '0') {
             display.textContent = e.currentTarget.textContent;
@@ -52,10 +52,9 @@ btns.forEach((button) =>{button.addEventListener('click', function (e){
         }else {
             display.textContent += e.currentTarget.textContent;
             secondNumber += e.currentTarget.textContent;
-
         }
     }
-    // If operator is clicked
+    // Operator is clicked
     else if (e.currentTarget.className == 'operator') {
         if(operator){
             result = operate(Number(firstNumber), operator, Number(secondNumber));
@@ -68,7 +67,7 @@ btns.forEach((button) =>{button.addEventListener('click', function (e){
         display.textContent += operator;
         }
     }
-    // If equal is clicked
+    // Equal is clicked
     else if (e.currentTarget.id == 'equal') {
         if (operator && secondNumber) {
             result = operate(Number(firstNumber), operator, Number(secondNumber));
@@ -76,6 +75,26 @@ btns.forEach((button) =>{button.addEventListener('click', function (e){
             secondNumber = '';
             operator = '';
             display.textContent = result;  
+        }
+    }
+    
+    // Clear is clicked
+    else if (e.currentTarget.id == 'clear') {
+        display.textContent = '0';
+        result = '';
+        firstNumber = '';
+        secondNumber = '';
+        operator = '';
+    }
+
+    // Decimal is clicked
+    else if (e.currentTarget.id == 'decimal') {
+        if (!operator && !firstNumber.includes('.')) {
+            display.textContent += e.currentTarget.textContent;
+            firstNumber += e.currentTarget.textContent;
+        } else if (operator && !secondNumber.includes('.')) {
+            display.textContent += e.currentTarget.textContent;
+            secondNumber += e.currentTarget.textContent;
         }
     }
 })});
